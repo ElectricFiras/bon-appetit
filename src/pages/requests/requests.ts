@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-requests',
@@ -11,10 +11,10 @@ export class RequestsPage {
   orders = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.restInfo = this.navParams.get('restInfo')
+    this.restInfo = this.navParams.get('restInfo');
     
     for (var key in this.restInfo.orders){
-      this.orders.push(this.restInfo.orders[key])
+      this.orders.push(this.restInfo.orders[key]);
     }
     
   }

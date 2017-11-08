@@ -128,9 +128,11 @@
   "phonegap-plugin-push": {
     "source": {
       "type": "registry",
-      "id": "phonegap-plugin-push@2.1.0"
+      "id": "phonegap-plugin-push@^2.1.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "FCM_VERSION": "11.0.1"
+    }
   }
 }

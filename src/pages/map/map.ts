@@ -1,17 +1,8 @@
 import { Component , ViewChild ,ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'; 
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
- } from '@ionic-native/google-maps';
- import {Platform} from 'ionic-angular';
- import { IonicPage } from 'ionic-angular';
+import { Geolocation ,GeolocationOptions ,Geoposition } from '@ionic-native/geolocation'; 
+import { GoogleMaps, GoogleMap } from '@ionic-native/google-maps';
+import {Platform} from 'ionic-angular';
  
  
 declare var google;
@@ -24,14 +15,14 @@ export class MapPage {
   map: GoogleMap;
   options : GeolocationOptions;
   currentPos : Geoposition;
-  rest  
+  rest;
 
   constructor(public navCtrl: NavController, 
     private geolocation : Geolocation, 
     private googleMaps: GoogleMaps, 
     private platform: Platform, 
     public navParams: NavParams) {
-        this.rest = this.navParams.get('rest')
+        this.rest = this.navParams.get('rest');
   }
 
   ngAfterViewInit() {

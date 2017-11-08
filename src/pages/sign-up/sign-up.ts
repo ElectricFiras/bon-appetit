@@ -1,10 +1,10 @@
 import { UserHomePage } from './../user-home/user-home';
 import { HomePage } from './../home/home';
-import { Component, ChangeDetectorRef, ViewChild, trigger, state, style, transition, animate, keyframes} from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController, MenuController } from 'ionic-angular';
+import { Component} from '@angular/core';
+import { NavController, NavParams,ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { SignInPage } from './../sign-in/sign-in'
 import { FacebookPage } from '../facebook/facebook';
@@ -24,12 +24,6 @@ export class SignUpPage {
   password ;
   itemsRef;
   phone;
-  ///////////Siraj
-  logoState: any = "in";
-  cloudState: any = "in";
-  loginState: any = "in";
-  formState: any = "in";
-  ///////////////Siraj
 
   constructor(
     public navCtrl: NavController,
@@ -53,18 +47,18 @@ export class SignUpPage {
     // when the page is ready
     // get the restaurants from the database 
     this.db.list('/restaurants').valueChanges().subscribe( data => {
-      if (this.restaurantsList.length === 0){
-        for (var i = 0; i < data.length; i++){
-          this.restaurantsList.push([data[i]['name'],data[i]['email']])
+      if (this.restaurantsList.length === 0) {
+        for (var i = 0; i < data.length; i++) {
+          this.restaurantsList.push([data[i]['name'],data[i]['email']]);
         }
       }
-      })
+    })
     
     // get the users from the database
     this.db.list('/Users').valueChanges().subscribe( data => {
-      if (this.usersList.length === 0){
-        for (var i = 0; i < data.length; i++){
-          this.usersList.push(data[i]['email'])
+      if (this.usersList.length === 0) {
+        for (var i = 0; i < data.length; i++) {
+          this.usersList.push(data[i]['email']);
         }
       }
       
@@ -72,8 +66,8 @@ export class SignUpPage {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           // if there, check if the user is a customer
-          for(var i = 0; i < this.usersList.length; i++){    
-            if (user.email === this.usersList[i]){
+          for(var i = 0; i < this.usersList.length; i++) {    
+            if (user.email === this.usersList[i]) {
               // if yes, go the user home page
               this.navCtrl.setRoot(UserHomePage, {
                 email: user.email
@@ -82,51 +76,35 @@ export class SignUpPage {
           }
           
           // if not a customer, check if he is a restaurant
-          for (var i = 0; i < this.restaurantsList.length; i++){
-            if (user.email === this.restaurantsList[i][1]){
-              this.restName = this.restaurantsList[i][0]
+          for (var i = 0; i < this.restaurantsList.length; i++) {
+            if (user.email === this.restaurantsList[i][1]) {
+              this.restName = this.restaurantsList[i][0];
               // if yes, go to the restaurant home page
               this.navCtrl.setRoot(HomePage, {
                 restName: this.restName
-              })
+              });
             }
           }
         } else {
             // No user is signed in.
           }
       });       
-    })
-
+    });
   }
 
   fbLogin() {
     this.fb.login(['email'])
     .then((res) => {
-      const fc = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken)
-      
+      const fc = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
       this.navCtrl.setRoot(FacebookPage, {
         fc: fc
-      })
-      // firebase.auth().signInWithCredential(fc).then(fs => {
-      // for (var i = 0; i < this.restaurantsList.length; i++){
-      //   if (fs.email === this.restaurantsList[i][1]){
-      //     this.restName = this.restaurantsList[i][0]
-      //     this.navCtrl.setRoot(HomePage, {
-      //            restName: this.restName
-      //     })
-      //   }
-      // }
-      // }).catch(ferr => {
-      //   alert ('firebase err')
-      // })
+      });
     })
     .catch(e => console.log('Error logging into Facebook', e));
-      
   }
 
   emailSignUp() {
-
-    if (!this.name){
+    if (!this.name) {
       let toast = this.toast.create({
         message: 'You need to fill your name first',
         duration: 3000,
@@ -143,28 +121,27 @@ export class SignUpPage {
       toast.present();
       return;
     }
-        // console.log(this.password)
-        this.angularFireAuth.auth.createUserWithEmailAndPassword(this.email, this.password).then(signUpData=>{
-          this.itemsRef = this.db.object('Users/' + this.phone);
-          this.itemsRef.set(  
-            { firstName: this.name,
-              email: this.email,
-              phone: this.phone,
-              new: true
-            });
-            
-            this.navCtrl.setRoot(UserHomePage, {
-              email: this.email
-            });
-        }).catch(err => {
-          this.toast.create({
-              message: err.message,
-              duration: 6000
-          }).present();
-          });
-      }
-      goToLogIn() {
-        this.navCtrl.push(SignInPage);
-      }
+    // console.log(this.password)
+    this.angularFireAuth.auth.createUserWithEmailAndPassword(this.email, this.password).then(signUpData=>{
+      this.itemsRef = this.db.object('Users/' + this.phone);
+      this.itemsRef.set({
+        firstName: this.name,
+        email: this.email,
+        phone: this.phone,
+        new: true
+      });
+      this.navCtrl.setRoot(UserHomePage, {
+        email: this.email
+      });
+    }).catch(err => {
+      this.toast.create({
+        message: err.message,
+        duration: 6000
+      }).present();
+    });
+  }
+  goToLogIn() {
+    this.navCtrl.push(SignInPage);
+  }
       
 }

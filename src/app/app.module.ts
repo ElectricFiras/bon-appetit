@@ -26,12 +26,10 @@ import { UserHomePage } from '../pages/user-home/user-home';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { MapPage } from '../pages/map/map';
 import { RestReviewsPage } from '../pages/rest-reviews/rest-reviews';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook';
 import { FacebookPage } from '../pages/facebook/facebook';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { AnimatorModule } from 'css-animator';
+import { Push } from '@ionic-native/push';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -47,7 +45,6 @@ var firebaseConfig = {
   storageBucket: "fireapp-14c15.appspot.com",
   messagingSenderId: "374147991168"
 };
-
 
 @NgModule({
   declarations: [
@@ -74,8 +71,7 @@ var firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     Ionic2RatingModule,
-    CloudModule.forRoot(cloudSettings),
-    // BrowserAnimationsModule
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -104,4 +100,5 @@ var firebaseConfig = {
     Push
   ]
 })
+
 export class AppModule {}

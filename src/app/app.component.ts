@@ -1,16 +1,12 @@
 import { SignUpPage } from './../pages/sign-up/sign-up';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, Nav, MenuController, LoadingController } from 'ionic-angular';
+import { Platform, Nav, MenuController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-//import { MapPage } from '../pages/map/map';
-import { UserHomePage } from '../pages/user-home/user-home';
-import firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import {AboutPage} from'../pages/about/about';
+
 @Component({
   templateUrl: 'app.html'  
 })
